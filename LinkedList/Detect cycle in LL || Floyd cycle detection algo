@@ -1,0 +1,54 @@
+1. Check if loop/cycle present in a LinkedList if present return true else false  --> using extra space 
+
+Node *removeLoop(Node *head)
+{
+    // if list has cycle or not
+    if(head == NULL){
+        return false;
+    }
+    map<Node* , bool> visited;
+    Node* temp = head;
+    while(temp != NULL){
+        //if we have vistied node means cycle or loop is detected
+        if(visited[temp] = true){
+            cout<<" Loop starting node"<<temp->data<<endl;
+            return true;
+        }
+        visited[temp] = true;
+        temp = temp->next;
+    }
+    return false;
+}
+
+2. Using Floyd cycle detection algo (Find loop is present or not) or Detect cycle in LinkedList
+
+
+Node* floydDetectLoop(Node* head){
+    if(head == NULL){
+        return NULL;
+    }
+    Node* slow = head;
+    Node* fast = head;
+    while(slow != NULL && fast != NULL){
+        fast = fast->next;
+        if(fast != NULL){
+            fast = fast->next;
+        }
+        slow = slow->next;
+        if(slow == fast){
+            cout<<"Loop is present"<<slow->data<<endl;
+            return slow;
+        }
+    }
+    return NULL;
+    
+}
+Node *removeLoop(Node *head)
+{
+    if(floydCycleDetection(head) != NULL){
+        cout<<"cycle is present"<<endl;
+    }
+    else{
+        cout<<"cycle is not present"<<endl;
+    }
+}
