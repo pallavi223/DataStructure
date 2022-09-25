@@ -1,0 +1,33 @@
+int getcount(Node* head){
+    Node* temp = head;
+    int count = 1;
+    while(temp->next != head){
+        count++;
+        temp = temp->next;
+    }
+    return count;
+}
+
+//Function to find the length of a loop in the linked list.
+int countNodesinLoop(struct Node *head)
+{
+     if(head == NULL){
+         return NULL;
+     }
+     Node* slow = head;
+     Node* fast = head;
+ 
+     while(slow != NULL && fast != NULL){
+         fast = fast->next;
+         if(fast != NULL){
+             fast = fast->next;
+         }
+         slow = slow->next;
+         if(slow == fast){
+             return getcount(slow);
+         }
+       
+     }
+     return 0;
+    
+}
