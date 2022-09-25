@@ -52,3 +52,54 @@ Node *removeLoop(Node *head)
         cout<<"cycle is not present"<<endl;
     }
 }
+
+
+
+3.. Begining or starting of loop
+Node* floydDetectLoop(Node* head){
+    if(head == NULL){
+        return NULL;
+    }
+    Node* slow = head;
+    Node* fast = head;
+    while(slow != NULL && fast != NULL){
+        fast = fast->next;
+        if(fast != NULL){
+            fast = fast->next;
+        }
+        slow = slow->next;
+        if(slow == fast){
+            cout<<"Loop is present"<<slow->data<<endl;
+            return slow;
+        }
+    }
+    return NULL;
+    
+}
+Node* getStartingNode(Node* head){
+   if(head == NULL){
+       return NULL;
+   } 
+    Node* intersection = floydDetectLoop(head);
+    Node* slow = head;
+    while(slow != NULL){
+        slow = slow->next;
+        intersection = intersection -> next;
+    }
+    return slow;
+}
+
+
+
+Node *removeLoop(Node *head)
+{
+    if(floydCycleDetection(head) != NULL){
+        cout<<"cycle is present"<<endl;
+    }
+    else{
+        cout<<"cycle is not present"<<endl;
+    }
+    
+    Node* loop = getStartingNode(head);
+    cout<<" loop starts at"<<loop -> data<<endl;
+}
