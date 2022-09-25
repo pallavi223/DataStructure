@@ -103,3 +103,17 @@ Node *removeLoop(Node *head)
     Node* loop = getStartingNode(head);
     cout<<" loop starts at"<<loop -> data<<endl;
 }
+
+4. Remove Loop from LL
+Node *removeLoop(Node *head)
+{
+    if(head == NULL)
+        return NULL;
+    
+    Node* startOfLoop = getStartingLoop(head);
+    Node* temp = startOfLoop;
+    while(temp -> next != startOfLoop){
+        temp = temp->next;
+    }
+   temp -> next = NULL;
+}
