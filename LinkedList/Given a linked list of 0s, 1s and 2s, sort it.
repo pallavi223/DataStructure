@@ -1,0 +1,107 @@
+Sample Input 1:
+2
+1 0 2 1 2 -1
+0 0 1 2 -1
+Sample Output 1:
+0 1 1 2 2 -1
+0 0 1 2 -1
+
+
+Approach1:
+
+Node* sortList(Node *head)
+{
+    // find count of 0,1 and 2
+    int zeroCount=0;
+    int oneCount=0;
+    int twoCount=0;
+    Node* temp = head;
+    while(temp != NULL){
+        if(temp->data == 0){
+            zeroCount++;
+        }
+        else if(temp->data == 1){
+            oneCount++;
+        }
+        else if(temp->data == 2){
+            twoCount++;
+        }
+        temp = temp->next;
+    }
+    //traverse whole list and replace data
+    temp=head;
+    while(temp != NULL){
+        if(zeroCount != 0){
+            temp->data = 0;
+            zeroCount--;
+        }
+        else if(oneCount != 0){
+            temp->data = 1;
+            oneCount--;
+        }
+        else if(twoCount != 0){
+            temp->data = 2;
+            twoCount--;
+        }
+        temp = temp->next;
+    }
+return head;
+}
+
+
+2. Approach-2
+If we don't want to replace data than use this approcah 
+T(C) = O(n)
+S(C) = O(1)
+
+Node* insertAtTail(Node* &tail, Node* curr){
+    tail->next = curr;
+    tail = curr;
+}
+Node* sortList(Node *head)
+{
+    //create three dummy nodes
+    Node* zeroHead = new Node(-1);
+    Node* zeroTail = zeroHead;
+    Node* oneHead = new Node(-1);
+    Node* oneTail = oneHead;
+    Node* twoHead = new Node(-1);
+    Node* twoTail = twoHead;
+    Node* curr = head;
+    while(curr != NULL){
+        //we need to create three seperate ll for 0s,1s, and 2s
+        int value = curr->data;
+        if(value == 0){
+            insertAtTail(zeroTail, curr);
+        }
+        else if(value == 1){
+            insertAtTail(oneTail, curr);
+        }
+        else if(value == 2){
+            insertAtTail(twoTail, curr);
+        }
+        curr = curr->next;
+    }
+    
+    //Need to merge these 3 LL
+    if(oneHead->next != NULL){
+        //if 1s list is not empty
+        zeroTail->next = oneHead->next;      
+    } else{
+        //if 1s list is empty
+        zeroTail->next = twoHead->next;
+    }
+    oneTail->next = twoHead->next;
+    twoTail->next = NULL;
+    
+    //setup head
+    head = zeroHead->next;
+    
+    //need to delete dummy nodes
+    delete(zeroHead);
+    delete(oneHead);
+    delete(twoHead);
+    return head;
+}
+
+
