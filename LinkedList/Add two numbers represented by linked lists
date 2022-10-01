@@ -1,0 +1,97 @@
+
+N = 2
+valueN[] = {4,5}
+M = 3
+valueM[] = {3,4,5}
+Output: 3 9 0  
+
+
+class Solution
+{
+    private:
+     struct Node* reverse( struct Node* head){
+        Node* curr = head;
+        Node* forward = NULL;
+        Node* prev = NULL;
+        while(curr != NULL){
+            forward = curr->next;
+            curr->next = prev;
+            prev = curr;
+            curr = forward;
+        }
+        return prev;
+    }
+    
+    void insertAtTail(struct Node* &head, struct Node* &tail, int data){
+        Node* temp = new Node(data);
+        if(head == NULL){
+            //if empty list
+          head = temp;
+          tail = temp;
+          return;
+        }
+        else{
+            tail->next = temp;
+            tail = temp;
+        }
+    }
+    struct Node* addLL(struct Node* first, struct Node* second){
+        int carry = 0;
+
+        Node* ansHead = NULL;
+        Node* ansTail = NULL;
+        while(first != NULL && second != NULL){
+             int sum = carry + first->data + second->data;
+             int digit = sum % 10;
+             
+             //create node and add in ans Linkedlist
+             insertAtTail(ansHead, ansTail, digit);
+         
+             carry = sum/10;
+             first = first->next;
+             second = second->next;
+        }
+        while(first != NULL){
+            int sum = carry + first->data;
+            int digit = sum % 10;
+            insertAtTail(ansHead, ansTail, digit);
+            carry = sum/10;
+            first = first->next;
+        }
+        while(second != NULL){
+            //agar second ll choti ha first se
+            int sum = carry + second->data;
+            int digit = sum % 10;
+            insertAtTail(ansHead, ansTail, digit);
+            carry = sum/10;
+            second = second->next;
+        }
+        
+        //Maan lo teeno ll barabar length ki thi but at the end carry bach gya toh
+        while(carry != 0){
+            int sum = carry;
+            int digit = sum%10;
+            insertAtTail(ansHead, ansTail, digit);
+            carry = sum/10;
+            
+        }
+      return ansHead;   
+    }
+    public:
+    //Function to add two numbers represented by linked list.
+    struct Node* addTwoLists(struct Node* first, struct Node* second)
+    {
+       //step1: reverse both LL
+       first = reverse(first);
+       second = reverse(second);
+       
+       //step2 : add both LL
+       Node* ans = addLL(first, second);
+   
+       
+       //step3: reverse again LL
+       ans = reverse(ans);
+      
+       
+    }
+    };
