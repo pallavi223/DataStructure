@@ -1,0 +1,32 @@
+Node* merge(Node* down, Node* right){
+   if(down == NULL)
+       return right;
+    if(right == NULL)
+        return down;
+    
+    Node* ans = NULL;
+   
+        if(down->data < right->data){
+            ans = down;
+            ans->child = merge(down->child, right);
+        }
+        else{
+            ans = right;
+            ans->child = merge(down,right->child);
+        }
+    
+    ans->next = NULL;
+    return ans;
+  
+}
+Node* flattenLinkedList(Node* head) 
+{
+    if(head == NULL || head->next == NULL){
+        return head;
+    }
+    //recursive call
+    return merge(head, flattenLinkedList(head->next));
+
+
+
+}
