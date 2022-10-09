@@ -1,0 +1,40 @@
+
+Input:
+St = {3,2,1,7,6}
+Output:
+{6,7,1,2,3}
+
+    void insertAtBottom(stack<int> &St, int num){
+        //base case
+        if(St.empty()){
+            St.push(num);
+            return;
+        }
+        int t = St.top();
+        St.pop();
+        //recursion call
+        insertAtBottom(St, num);
+        St.push(t);
+    }
+    void reverseStack(stack<int> &St){
+             //base case
+        if(St.empty()){
+            //vaps aja
+            return;
+        }
+        
+        int num = St.top();
+        St.pop();
+        
+        //recursion call
+        reverseStack(St);
+        insertAtBottom(St, num);
+    }
+public:
+    stack<int> Reverse(stack<int> St){
+      
+        reverseStack(St);  
+     
+        return St;
+        
+    }
