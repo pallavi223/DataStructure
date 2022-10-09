@@ -1,0 +1,31 @@
+
+
+
+#include <bits/stdc++.h> 
+void solve(stack<int>&inputStack, int count, int N){
+    
+    //base case tak agya means middle element milgya
+    if(count == N/2){
+        //pop middle element
+        inputStack.pop();
+        return;
+    }
+    //top vale eleme ko store krke usko pop krdnge taki count dec hota jya
+    int t = inputStack.top();
+    inputStack.pop();
+    
+    //Recursion call for next calls
+    solve(inputStack, count+1, N);
+    
+    //baad me usko lete jao --> t vale elem ko
+    inputStack.push(t);
+    
+    
+}
+
+void deleteMiddle(stack<int>&inputStack, int N){
+	
+   int count = 0;
+   solve(inputStack, count, N);
+   
+}
