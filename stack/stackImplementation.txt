@@ -1,0 +1,95 @@
+1. Stack Implementation Using Array
+
+#include <iostream>
+using namespace std;
+
+//Time complexity of all operations is --> O(1)
+class Stack{
+    public:
+    //properties
+    int top;
+    int size;
+    int *arr;
+    
+    Stack(int size){
+      this->size = size;
+      arr = new int[size];
+      top = -1;
+    }
+    
+    //create a method for push operation
+    void push(int element){
+        //if space available in array
+        if(size - top > 1){  
+            top++;
+            arr[top] = element;
+        }
+        else{
+             //if space not available in array
+            cout<<"Stack is overflow "<<endl;
+        }
+    }
+    
+    //create a method to pop and element
+    void pop(){
+        //if element is present in stack
+        if(top >= 0){
+            top--;
+        }
+        else{
+            cout<<" Stack is underflow"<<endl;
+        }
+    }
+    
+    //to get front element of Stack 
+       int Peek(){
+           //to check top is in valid range or not
+        if(top >= 0){
+            return arr[top];
+        }
+        else{
+            cout<<" Stack is empty"<<endl;
+            return -1;
+        }
+    }
+    
+    //check is stack is empty or not
+    bool isEmpty(){
+        if(top == -1){
+            return true;
+        }
+        else{
+           return false;
+        }
+    }
+    
+};
+
+int main()
+{
+   
+    Stack st(5);
+    st.push(20);
+    st.push(22);
+    st.push(30);
+    st.push(34);
+    
+    //cout<<"top element of stack is:  "<<st.Peek()<<endl;
+    st.pop();
+    //cout<<"top element of stack is:  "<<st.Peek()<<endl;
+    st.pop();
+    st.pop();
+    st.pop();
+    //cout<<"top element of stack is:  "<<st.Peek()<<endl;
+    if(st.isEmpty()){
+        cout<<"Stack is empty"<<endl;
+    }
+    else{
+        cout<<"Stack is not empty"<<endl;
+    }
+   
+    return 0;
+}
+
+
+2. Stack implementation using LinkedList
