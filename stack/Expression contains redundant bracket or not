@@ -1,0 +1,41 @@
+Sample Input 1 :
+2
+(a+b)
+(a+c*b)+(c))
+Sample Output 1 :
+No
+Yes
+
+
+bool findRedundantBrackets(string &s)
+{
+   stack<char> st;
+    
+    for(int i=0;i<s.length(); i++){
+        char ch = s[i];
+        
+        //check if openin bracket and operator is there 
+        if(ch == '(' || ch == '+' || ch == '-' || ch=='*' || ch == '/'){
+            //push in stack
+            st.push(ch);
+        }
+        else{
+            //if closing bracket is there or alphabet
+            if(ch == ')'){
+                bool isRedundant = true;
+                while(st.top() != '('){
+                    char top = st.top();
+                    //if operator found between opening & closing bracket means not redundant
+                    if(top == '+' || top == '-' || top=='*' || top=='/'){
+                        isRedundant = false;
+                    }
+                    st.pop();
+                }
+                if(isRedundant == true)
+                    return true;
+                st.pop();
+            }
+        }
+    }
+    return false;
+}
