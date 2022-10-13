@@ -1,0 +1,43 @@
+N = 5
+Arr[] = {4, 2, 1, 5, 3}
+Output:
+2 1 -1 3 -1
+
+
+	void immediateSmaller(vector<int>&arr, int n) {
+	    //  code here
+	    for(int i=0;i<n;i++){
+	        if(arr[i] > arr[i+1]){
+	            arr[i] = arr[i+1];
+	        }
+	        else{
+	           arr[i] = -1; 
+	        }
+	    }
+	    //array ke last ele
+	    arr[n-1] = -1;
+	}
+  
+  ############### using stack
+  
+  #include<stack>
+
+vector<int> nextSmallerElement(vector<int> &arr, int n)
+{
+    stack<int> st;
+    st.push(-1);
+    
+    vector<int>ans(n);
+    //ran loop from back to dec comparioson
+    for(int i = n-1; i>=0; i--){
+        int curr = arr[i];
+        
+        while(st.top() >= curr){
+            st.pop();
+        }
+        //ans me stack ka top daaldo 
+       ans[i] = st.top();
+        st.push(curr);
+    }
+    return ans;
+}
