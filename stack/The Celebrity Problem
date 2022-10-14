@@ -1,0 +1,154 @@
+
+
+
+    private: 
+    
+    bool knows(vector<vector<int> >& M, int a, int b, int n){
+        if(M[a][b] == 1){
+            return true;
+        }
+        else{
+            return false;
+        }
+    }
+    
+    
+    public:
+    //Function to find if there is a celebrity in the party or not.
+    int celebrity(vector<vector<int> >& M, int n) 
+    {
+        stack<int> st;
+      //step1: put all elements inside the stack
+      for(int i=0;i<n;i++){
+          st.push(i);
+      }
+      
+      //step2: get two elements and comape them
+      while(st.size() > 1){
+          int a = st.top();
+          st.pop();
+          
+          int b = st.top();
+          st.pop();
+          
+          //check if a knows b
+          if(knows(M,a,b,n)){
+              //discard a and push b
+              st.push(b);
+          }
+          else{
+              //discard b nd push a
+              st.push(a);
+          }
+      }
+      
+      int ans = st.top(); //if stack has single element only this might be the potential cele
+      //so verify it
+      bool rowCheck = false;
+      int zeroCount = 0;
+      for(int i=0;i<n;i++){
+        //row check
+          if(M[ans][i] == 0)
+              zeroCount++; 
+          }
+          //all zeros(mtlb is row me sare elem zero ha)
+          if(zeroCount == n){
+              rowCheck = true;
+          }
+          //column check 
+          bool colCheck = false;
+          int oneCount = 0;
+          for(int i=0;i<n;i++){
+              if(M[i][ans] == 1)
+                  oneCount++;
+              }
+              //sre 1 ha except diagonal ele 
+              if(oneCount == n-1){
+                  colCheck = true;
+              }
+          
+              if(rowCheck == true && colCheck == true){
+                 return ans;   
+              }
+              else{
+                  return -1;
+              }
+          
+          
+      }
+      
+         
+    private: 
+    
+    bool knows(vector<vector<int> >& M, int a, int b, int n){
+        if(M[a][b] == 1){
+            return true;
+        }
+        else{
+            return false;
+        }
+    }
+    
+    //better sol of first
+    public:
+    //Function to find if there is a celebrity in the party or not.
+    int celebrity(vector<vector<int> >& M, int n) 
+    {
+        stack<int> st;
+      //step1: put all elements inside the stack
+      for(int i=0;i<n;i++){
+          st.push(i);
+      }
+      
+      //step2: get two elements and comape them
+      while(st.size() > 1){
+          int a = st.top();
+          st.pop();
+          
+          int b = st.top();
+          st.pop();
+          
+          //check if a knows b
+          if(knows(M,a,b,n)){
+              //discard a and push b
+              st.push(b);
+          }
+          else{
+              //discard b nd push a
+              st.push(a);
+          }
+      }
+      
+      int ans = st.top(); //if stack has single element only this might be the potential cele
+      //so verify it
+    
+      int zeroCount = 0;
+      for(int i=0;i<n;i++){
+        //row check
+          if(M[ans][i] == 0)
+              zeroCount++; 
+          }
+          //all zeros(mtlb is row me sare elem zero ha)
+          if(zeroCount != n){
+             return -1;
+          }
+          //column check 
+         
+          int oneCount = 0;
+          for(int i=0;i<n;i++){
+              if(M[i][ans] == 1)
+                  oneCount++;
+              }
+              //sre 1 ha except diagonal ele 
+              if(oneCount != n-1){
+                  return -1;
+              }
+      
+      
+      
+      return ans;
+          
+      }
+      
+      
+      
