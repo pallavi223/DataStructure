@@ -4,6 +4,29 @@ St = {3,2,1,7,6}
 Output:
 {6,7,1,2,3}
 
+
+
+
+//return the address of the string
+char* reverse(char *S, int len)
+{
+    stack<char> st;
+    
+       for(int i=0;i<len;i++){
+            st.push(S[i]);
+         }
+            for(int i=0;i<len;i++){
+            S[i] = st.top();
+            
+             st.pop();
+                
+            }
+            return S;
+    
+}   
+
+OR
+
     void insertAtBottom(stack<int> &St, int num){
         //base case
         if(St.empty()){
