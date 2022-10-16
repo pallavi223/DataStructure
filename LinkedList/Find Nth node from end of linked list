@@ -1,0 +1,26 @@
+Given a linked list consisting of L nodes and given a number N. The task is to find the Nth node from the end of the linked list
+
+
+//Function to find the data of nth node from the end of a linked list.
+int getNthFromLast(Node *head, int n)
+{
+       Node* fast = head;
+       Node* slow = head;
+       
+       int cnt=0;
+
+       //move forward fast ptr by n-1 position
+       while(cnt <= n-1 && fast != NULL){
+           fast = fast->next;
+           cnt++;  //no of nodes
+       } 
+       if( cnt<n){
+           return -1;
+       }
+       //move forward both fast & slow by 1 step
+       while( fast != NULL){
+           fast = fast->next;
+           slow = slow->next;
+       }
+       return slow->data;
+}
