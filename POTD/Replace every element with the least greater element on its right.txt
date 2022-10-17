@@ -52,7 +52,7 @@ Brute Force - O(N2)
             else if(s.size()>0){
                 
                 //find upper bound of ele
-                auto it = s.upper_bound(arr[i]);
+                auto it = s.upper_bound(arr[i]);    //it takes log(n) times
                 
                 //check if upper bound milgya to vo return kro 
                 //vrna end tak puch gya or ni mila to -1 return kro
