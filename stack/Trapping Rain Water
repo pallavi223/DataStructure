@@ -1,0 +1,34 @@
+
+
+
+public:
+    int trap(vector<int>& height) {
+        int size = height.size();
+        int maxL[size];
+        int maxR[size];
+
+        //calculate maxl  -- maximum heighyt from left
+        maxL[0] = height[0];
+
+        for(int i=1;i<size;i++)
+            maxL[i] = max(maxL[i-1], height[i]);
+        
+
+       //calculate maxR -- maximum height from right
+       maxR[size-1] = height[size-1]; //piche se chlnge
+       for(int i = size-2; i>=0;i--){
+           maxR[i] = max(maxR[i+1], height[i]);
+       }
+       int water[size];
+       //to find how much water trap
+       for(int i=0;i<size;i++){
+
+           water[i] = min(maxL[i],maxR[i])-height[i];
+       }
+       int sum = 0;
+       for(int i=0;i<size;i++)
+          sum = sum+water[i];
+
+       return sum;
+    }
+};
