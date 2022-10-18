@@ -1,0 +1,56 @@
+N = 2
+A = [[1, 2],
+     [3, 4]]
+Output:
+1 2 3 4
+
+################### BRUTE FORCE APPROACH  -->O(N3) ##################################
+
+	vector<int> downwardDigonal(int N, vector<vector<int>> A)
+	{
+	    vector<int> ans;
+	 //diagonal number
+		for(int i=0;i<2*N-1;i++){
+		    
+		    //loop of row
+		    for(int k=0;k<N; k++){
+		        for(int j=0;j<N;j++){
+		            if(j+k == i)
+		                ans.push_back(A[k][j]);
+		            
+		        }
+		    }
+		}
+		return ans;
+	}
+  
+  
+  ################################## Efficient sol -- O(N2)
+  
+  
+  	vector<int> downwardDigonal(int N, vector<vector<int>> A)
+	{
+		vector<int> ans;
+		
+		//upper half
+		for(int i=0;i<N;i++){
+		    
+		    int row= 0, col = i;
+		    while(col>=0){
+		        ans.push_back(A[row][col]);
+		        row++;
+		        col--;
+		    }
+		    
+		}
+		//for lower half
+		for(int i=1;i<N;i++){
+		    int row = i, col = N-1;
+		    while(row<N){
+		        ans.push_back(A[row][col]);
+		        row++;
+		        col--;
+		    }
+		}
+		return ans;
+	}
