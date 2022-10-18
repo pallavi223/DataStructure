@@ -1,0 +1,113 @@
+
+
+
+solution using histogram approach || C++
+
+
+class Solution {
+private:
+vector nearestSmallerLeft(vector &arr){
+int n = arr.size();
+vector ans;
+stack<pair<int, int>> s;
+
+    for(int i=0;i<n;i++){
+        if(s.size() == 0){
+            ans.push_back(-1);
+        }
+        else if(s.size() > 0 && s.top().first < arr[i]){
+            ans.push_back(s.top().second);
+        }
+        else {
+            while(s.size() > 0 && s.top().first >= arr[i]){
+                s.pop();
+            }
+            if(s.size() == 0){
+                ans.push_back(-1);
+            }
+            else{
+                ans.push_back(s.top().second);
+            }
+        }
+        s.push({arr[i], i});
+    }
+    return ans;
+}
+
+vector<int> nearestSmallerRight(vector<int> &arr){
+     vector<int> ans;
+    stack<pair<int, int>> s;
+    int n = arr.size();
+    
+    for(int i=n-1;i>=0;i--){
+        if(s.size() == 0){
+            ans.push_back(n);
+        }
+        else if(s.size() > 0 && s.top().first < arr[i]){
+            ans.push_back(s.top().second);
+        }
+        else {
+            while(s.size() > 0 && s.top().first >= arr[i]){
+                s.pop();
+            }
+            if(s.size() == 0){
+                ans.push_back(n);
+            }
+            else{
+                ans.push_back(s.top().second);
+            }
+        }
+        s.push({arr[i], i});
+    }
+    reverse(ans.begin(), ans.end());
+    return ans;
+}
+public:
+int largestRectangleArea(vector& heights) {
+int n = heights.size();
+
+    vector<int> left(n);
+    left = nearestSmallerLeft(heights);
+    
+    vector<int> right(n);
+    right = nearestSmallerRight(heights);
+    
+   vector<int>v;
+   for(int i=0;i<n;i++){
+       v.push_back((right[i]-left[i]-1)*heights[i]);   //(n-p-1)*length
+   }
+  int area=*max_element(v.begin(), v.end());
+      
+   return area;
+}
+public:
+int maximalRectangle(vector<vector>& matrix) {
+
+      if(matrix.empty())
+        return 0;
+
+ int m=matrix.size();  //Number of Rows
+int n=matrix[0].size();  //size of every row
+    vector<int> v(n,0);  //Stores 1-d histogram of level row in matrix
+ 
+    int ans = 0;
+    
+    //add next rows in vector
+    for(int i=0;i<m;i++){  //row
+        for(int j=0;j<n;j++){   //col
+            //copy if 0 to 0 dalo else add krdo if 1 ha than add first array ele to another
+            if(matrix[i][j] == '0')
+                v[j] = 0;
+            
+            else
+              v[j] += 1;
+        }          
+        
+        //call maximumAreaHistogram function for other vectors to find maximum
+         int area = largestRectangleArea(v);
+         ans = max(ans, area);
+    }
+    
+    return ans;
+}
+};
