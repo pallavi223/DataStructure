@@ -1,3 +1,13 @@
+Read the question carefully and understand when the water will be stored.
+The stored water will difference between heights.
+For each element u sould know the max height on left side of that element and
+max height of right side of that element.
+The water stored will be the min( leftmax[i] , rightmax[i]) -height[i].For each
+element at particular index water stored will be this.
+Water stored += Math.min(leftmax[k],rightmax[k]) - height[k];
+
+Two for loops ,So Time Complexity = O(2n)
+
 
 
 
