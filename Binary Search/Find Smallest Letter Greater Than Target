@@ -1,0 +1,33 @@
+
+Input: letters = ["c","f","j"], target = "a"
+Output: "c"
+Explanation: The smallest character that is lexicogrpahically greater than 'a' in letters is 'c'.
+
+Input: letters = ["x","x","y","y"], target = "z"
+Output: "x"
+Explanation: There are no characters in letters that is lexicographically greater than 'z' so we return letters[0].
+
+
+ char nextGreatestLetter(vector<char>& letters, char target) {
+        
+      //same as finding ceil of an array == greater letter(ele) which is smaller than target ele
+      //Apply binary serach here
+      int start = 0;
+      int end = letters.size()-1;
+    char res = letters[0]; //if no characters present which we are seraching(or no condi true than give arr[0])
+      while( start <= end){
+          int mid = start+(end-start)/2;
+          if(target == letters[mid]){    //if target is in mid move to next right
+             start = mid+1;
+          } 
+          if(target > letters[mid]){    //key is greater move right
+              start = mid+1;
+          }
+          else if(target < letters[mid]){
+              res = letters[mid];
+              end = mid-1;
+          }
+
+      }
+      return res;
+    }
