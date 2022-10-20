@@ -1,0 +1,62 @@
+Input : 
+arr[] = {0, 0, 0, 0, 0, 0, 1, 1, 1, 1}
+Output : 
+6
+Explanation:
+The index of first 1 in the array is 6.
+
+
+    int firstIndex(int a[], int n) 
+    {
+        int ans = -1;
+        for(int i=0;i<n;i++){
+            if(a[i] == 1){
+                ans = i;
+                break;
+            }
+        }
+        return ans;
+    }
+    
+    ########################### with binary search
+    
+    Expected Time Complexity: O(Log (N))
+    
+    
+        int firstIndex(int a[], int n) 
+    {
+        int start = 0;
+        int end = n-1;
+        int ans = -1;
+        while(start <= end){
+            int mid = start+(end-start)/2;
+            
+            if(a[mid] == 1){
+                ans = mid;
+                end = mid-1;
+            }
+            else{
+                start = mid+1;
+            }
+        }
+        return ans;
+    }
+    
+        int firstIndex(int a[], int n) 
+    {
+        int start = 0;
+        int end = n-1;
+        int ans = -1;
+        while(start <= end){
+            int mid = start+(end-start)/2;
+            
+            if(a[mid] == 1){
+                ans = mid;
+                end = mid-1;
+            }
+            else{
+                start = mid+1;
+            }
+        }
+        return ans;
+    }
