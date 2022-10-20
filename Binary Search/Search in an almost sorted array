@@ -1,0 +1,43 @@
+Input: arr[] =  {10, 3, 40, 20, 50, 80, 70}, key = 40
+Output: 2 
+Explanation: Output is index of 40 in given array i.e. 2
+
+Input: arr[] =  {10, 3, 40, 20, 50, 80, 70}, key = 90
+Output: -1
+
+
+
+Construct a recursive function to search for x  that takes array arr[], left pointer l and right pointer r as input and returns the index of x in array. 
+Initialize a variable mid with l+(r-l)/2.
+If arr[mid] is equal to x return mid 
+Else if arr[mid-1] is equal to x return mid-1 
+Else if arr[mid+1] is equal to x return mid+1
+If arr[mid] > x recur for search space l to mid-2 else recur for search space mid+2 to r.
+Below is the implementation of this approach.
+
+
+int start=0;
+        int end = num-1;
+        while(start <= end){
+            int mid = start+(end-start)/2;
+            
+            if(K == arr[mid]){
+               return mid;
+            }
+             if(mid-1 >= start && K == arr[mid-1]) //i-1th
+            {
+               return mid-1;
+            }
+             if(mid+1 <= end && K == arr[mid+1]){   //i+1th
+                return mid+1;
+            }
+            
+            if(K < arr[mid-1]){
+                end = mid-2;
+            }
+            else{
+                start = mid+2;
+            }
+        }
+        return -1;
+        }
