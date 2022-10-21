@@ -1,0 +1,27 @@
+N=7
+K=3
+arr[] = {10, 100, 300, 200, 1000, 20, 30}
+Output:
+20
+
+
+
+    int minDiff(int arr[], int N, int K)
+    {
+    
+       sort(arr, arr+N);
+       int mini = INT_MAX;
+       for(int i = 0;i<N; i++){
+        
+        if(i+K-1 < N){
+           long min = arr[i];
+           long max = arr[i+K-1];
+           long diff = max - min;
+           if(diff < mini){
+               mini = diff;
+           }
+        }
+           
+       }
+       return mini;
+    }
