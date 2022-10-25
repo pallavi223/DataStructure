@@ -1,0 +1,68 @@
+#########Queue Implementation Using Array
+
+#include <bits/stdc++.h> 
+class Queue {
+        int *arr;
+        int dfront;
+        int rear;
+        int size;
+public:
+    Queue() {
+       size = 100001;
+        arr = new int[size];
+        dfront = 0;
+        rear = 0;
+    }
+
+    /*----------------- Public Functions of Queue -----------------*/
+
+    bool isEmpty() {
+        //queue is empty 
+        if(dfront == rear){
+            return true;
+        }
+        else{
+            return false;
+        }
+    }
+    //push operation
+    void enqueue(int data) {
+       //check queue is full or not
+        if(rear == size){
+            cout<<"Queue is full"<<endl;
+        }
+        else{
+            arr[rear] = data;
+            rear++;
+        }
+    }
+     //pop operation
+    int dequeue() {
+       //check if queue is empty
+        if(dfront == rear){
+            return -1;
+        }
+        else{
+            int ans = arr[dfront];
+            arr[dfront] = -1;
+            dfront++;
+            if(rear == dfront){
+                //start from start 
+                rear = 0;
+                dfront = 0;
+            }
+             return ans;
+        }
+       
+    }
+
+    int front() {
+       //check empty 
+        if(dfront == rear){
+            return -1;
+        }
+        else{
+            return arr[dfront];
+        }
+    }
+};
