@@ -26,3 +26,31 @@ queue<int> rev(queue<int> q)
    }
    return q;
 }
+
+###################### USing Recursion
+
+Recursive solution with space complexity O(1) and TC as O(N)
+
+void reverse_(queue<int> &q){
+    //base case
+    if(q.empty()){
+        return;
+    }
+    int fr = q.front(); //storing the front element
+    //popping the front
+    q.pop();
+    // calling func for rest
+    reverse_(q);
+    // pushing back the front at end
+    q.push(fr);
+    
+}
+queue<int> rev(queue<int> q)
+{
+    // add code here.
+   reverse_(q);
+    
+    //recursive solution
+    return q;
+    
+}
