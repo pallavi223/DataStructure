@@ -1,0 +1,40 @@
+Input:
+5 3
+1 2 3 4 5
+
+Output: 
+3 2 1 4 5
+
+
+
+Expected Time Complexity : O(N)
+Expected Auxiliary Space : O(K)
+
+
+
+// Function to reverse first k elements of a queue.
+queue<int> modifyQueue(queue<int> q, int k) {
+
+   //using stack
+   stack<int> s;
+   //step1: fetch first k ele from queue and put it into stack
+   for(int i=0;i<k;i++){
+       int val = q.front();
+       q.pop();
+       s.push(val);
+   }
+   //step2: fetch from stack and push into queue
+   while(!s.empty()){
+       int val = s.top();
+       s.pop();
+       q.push(val);
+   }
+   //step3: fetch first (n-k) ele from queue and push_back
+   int t = q.size()-k;
+   while(t--){
+       int val = q.front();
+       q.pop();
+       q.push(val);
+   }
+   return q;
+}
