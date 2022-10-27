@@ -15,8 +15,8 @@ Output: [1,2,3]
  */
 class Solution {
     private:
-    vector<int> ans;
-    void solve(TreeNode* root){
+   
+    void solve(TreeNode* root, vector<int> &ans){
         
      //base condition
         if(root == NULL){
@@ -25,13 +25,13 @@ class Solution {
         //print root
         ans.push_back(root->val);
         //recursive call to traverse left and right
-        preorderTraversal(root->left);
-        preorderTraversal(root->right);
+        solve(root->left, ans);
+        solve(root->right, ans);
     }
 public:
     vector<int> preorderTraversal(TreeNode* root) {
-    
-       solve(root);
+       vector<int> ans;
+       solve(root, ans);
        return ans;
     }
 };
