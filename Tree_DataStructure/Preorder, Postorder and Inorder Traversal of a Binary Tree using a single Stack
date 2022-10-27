@@ -5,6 +5,12 @@ iteratively using only one stack traversal.
 T(C) - O(N)
 S(C) - O(N)
 
+
+for preorder(we print the node when we touch for the first time,before touching left and right node),for inorder we print the node when we touch it for second time(after touching left node),
+for post order we print the node when we meet it for third time(after meeting left and right)..take a tree  with 3 nodes and apply pre,in and post order..
+see when we are printing the node for each traversal....
+Intution here is after how many visits we are printing the node.....(assume each node as a root node
+
 #include <bits/stdc++.h>
 using namespace std;
 
