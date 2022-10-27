@@ -187,3 +187,63 @@ vector<vector<int>> getTreeTraversal(BinaryTreeNode<int> *root)
     ans.push_back(post);
     return ans;
     }
+    
+    ###########################################################
+    
+    
+    void inOrderTraversal(BinaryTreeNode<int> *root, vector<int> &in){
+    if(root == NULL){
+        return;
+    }
+    if(root->left){
+    inOrderTraversal(root->left, in);
+     }
+    in.push_back(root->data);
+    if(root->right){
+        inOrderTraversal(root->right,in);
+    }
+   
+}
+
+void preOrderTraversal(BinaryTreeNode<int> *root, vector<int> &pre){
+    if(root == NULL){
+        return;
+    }
+     pre.push_back(root->data);
+     if(root->left){
+    preOrderTraversal(root->left, pre);
+     }
+    if(root->right){
+        preOrderTraversal(root->right,pre);
+    }
+  
+}
+
+void postOrderTraversal(BinaryTreeNode<int> *root, vector<int> &post){
+    if(root == NULL){
+        return;
+    }
+    
+     if(root->left){
+    postOrderTraversal(root->left, post);
+     }
+    if(root->right){
+        postOrderTraversal(root->right,post);
+      }
+    post.push_back(root->data);
+}
+vector<vector<int>> getTreeTraversal(BinaryTreeNode<int> *root){
+   vector<vector<int>> ans;
+    vector<int> pre, in, post;
+    
+    inOrderTraversal(root, in);
+    preOrderTraversal(root, pre);
+    postOrderTraversal(root, post);
+    
+    ans.push_back(in);
+    ans.push_back(pre);
+    ans.push_back(post);
+    
+    return ans;
+    
+}
