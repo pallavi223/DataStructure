@@ -1,0 +1,42 @@
+Input: root = [3,9,20,null,null,15,7]
+Output: true
+
+/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode() : val(0), left(nullptr), right(nullptr) {}
+ *     TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}
+ *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
+ * };
+ */
+class Solution {
+    int dfsHeight(TreeNode* root){
+        //base condition
+        if(root == NULL){
+            return 0;
+        }
+
+        int lh = dfsHeight(root->left);
+        int rh = dfsHeight(root->right);
+        //add condi to see not balanced
+        if(lh == -1){
+            return -1;  //-1 meaning not a Balanced Binary Tree
+        } 
+        if(rh == -1){
+            return -1;
+        }
+        if(abs(lh-rh) > 1){
+            return -1;   //meaning not a Balanced Binary Tree
+        }
+        return max(lh,rh)+1;   //if return any height meaning a Balanced Binary Tree
+    }
+public:
+    bool isBalanced(TreeNode* root) {
+        
+       return dfsHeight(root) != -1; //if height not equal to -1 return true otherwise return false
+
+    }
+};
