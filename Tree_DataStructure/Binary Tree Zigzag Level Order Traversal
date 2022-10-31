@@ -1,0 +1,97 @@
+Input: root = [3,9,20,null,null,15,7]
+Output: [[3],[20,9],[15,7]]
+
+class Solution {
+public:
+    vector<vector<int>> zigzagLevelOrder(TreeNode* root) {
+        vector<vector<int>> result;
+
+        if(root == NULL){
+            return result;
+        }
+
+        queue<TreeNode*>q;
+        q.push(root);
+
+          bool  leftToRight = true; //flag depending upon this we will trverse either from L->R or R->L
+        while(!q.empty()){
+            int size = q.size();
+            vector<int> row(size);
+          
+            for(int i=0;i<size;i++){
+                TreeNode* node = q.front();
+                q.pop();
+                
+                int index = (leftToRight) ? i : (size-1-i);
+                
+                row[index] = node->val;
+                if(node->left){
+                    q.push(node->left);
+                }
+                if(node->right){
+                    q.push(node->right);
+                }
+              
+            }
+            //after this traversal
+           leftToRight = !leftToRight;
+           result.push_back(row);
+
+        }
+         return result;
+    }
+};
+
+#################################################
+Input:
+        1
+      /   \
+     2     3
+    / \   /  \
+   4   5 6    7
+Output:
+1 3 2 4 5 6 7
+
+
+class Solution{
+    public:
+    //Function to store the zig zag order traversal of tree in a list.
+    vector <int> zigZagTraversal(Node* root)
+    {
+    	vector<int> result;
+    	if(root == NULL){
+    	    return result;
+    	}
+    	
+    	queue<Node*>q;
+    	q.push(root);
+    
+    	int count=0;
+    	while(!q.empty()){
+    	   
+    	    int size = q.size();
+    	    count++;
+    	    vector<int> v1;
+    	    for(int i=0;i<size;i++){
+    	        Node* node = q.front();
+    	        q.pop();
+    	    
+    	        if(node->left){
+    	            q.push(node->left);
+    	        }
+    	        if(node->right){
+    	            q.push(node->right);
+    	        }
+    	        v1.push_back(node->data);
+    	    }
+    	    if(count % 2 == 0){   //if count even traverse R->L and reverse the ans
+    	        reverse(v1.begin(), v1.end());
+    	    }
+    	    for(int j=0;j<v1.size();j++){
+    	        result.push_back(v1[j]);
+    	    }
+    	  
+    	}
+    	return result;
+    }
+};
