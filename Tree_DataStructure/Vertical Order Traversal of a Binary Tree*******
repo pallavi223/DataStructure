@@ -1,0 +1,41 @@
+Input: root = [3,9,20,null,null,15,7]
+Output: [[9],[3,15],[20],[7]]
+Explanation:
+Column -1: Only node 9 is in this column.
+Column 0: Nodes 3 and 15 are in this column in that order from top to bottom.
+Column 1: Only node 20 is in this column.
+Column 2: Only node 7 is in this column.
+
+
+class Solution {
+public:
+    vector<vector<int>> verticalTraversal(TreeNode* root) {
+        map<int, map<int, multiset<int>>> mp;
+        queue<pair<TreeNode*, pair<int, int>>> todo;
+        todo.push({root, {0,0}});
+        while(!todo.empty()){
+            auto p = todo.front();
+            todo.pop();
+            TreeNode* node = p.first;
+            int x = p.second.first, y = p.second.second;
+            mp[x][y].insert(node->val);
+
+            if(node->left){
+                todo.push({node->left, {x-1, y+1 }});
+            }
+            if(node->right){
+                todo.push({node->right, {x+1, y+1}});
+            }
+        }
+
+        vector<vector<int>> ans;
+        for(auto p:mp){
+            vector<int> col;
+            for(auto q: p.second){
+                col.insert(col.end(), q.second.begin(), q.second.end());
+            }
+            ans.push_back(col);
+        }
+        return ans;
+    }
+};
