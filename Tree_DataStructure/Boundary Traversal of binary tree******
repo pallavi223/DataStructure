@@ -1,0 +1,94 @@
+Left boundary nodes: defined as the path from the root to the left-most node ie- 
+         the leaf node you could reach when you always travel preferring the left subtree over the right subtree. 
+Leaf nodes: All the leaf nodes except for the ones that are part of left or right boundary.
+Reverse right boundary nodes: defined as the path from the right-most node to the root. 
+               The right-most node is the leaf node you could reach when you always travel preferring the right subtree over the left subtree. Exclude the root from this as it was already included in the traversal of left boundary nodes.
+               
+               
+               
+               
+               class Solution {
+    
+    bool isLeaf(Node *root){
+        if(root->left == NULL && root->right==NULL)
+            return true;
+        
+        return false;
+    }
+    void addLeftBoundary(Node *root, vector<int> &res){
+        Node *curr = root->left;
+        while(curr){
+            if(!isLeaf(curr)){
+                res.push_back(curr->data);
+            }
+            if(curr->left != NULL){
+                curr = curr->left;
+            }
+            else{
+                curr = curr->right;
+            }
+        }
+    }
+    
+    //follow inorder traversal --> Left Root Right
+    void addLeafNodes(Node *root, vector<int> &res){
+        if(isLeaf(root)){
+            res.push_back(root->data);
+            return;
+        }
+        if(root->left != NULL){
+            addLeafNodes(root->left, res);
+        }
+        if(root->right != NULL){
+            addLeafNodes(root->right, res);
+        }
+    }
+    
+    void addRightBoundary(Node *root, vector<int> &res){
+        
+     
+        Node* curr = root->right;
+        vector<int> temp;
+        
+        while(curr){
+        if(!isLeaf(curr))
+            temp.push_back(curr->data);
+        
+        if(curr->right != NULL)
+            curr = curr->right;
+        
+        else
+            curr = curr->left;
+        
+        }
+        
+        //reverse the left boundary temp(vector)
+        for(int i=temp.size()-1; i>=0;i--){
+            res.push_back(temp[i]);
+        }
+    }
+    
+    
+public:
+    vector <int> boundary(Node *root)
+    {
+        vector<int> res;
+        if(root == NULL){
+            //return empty vector as a ans
+            return res;
+        }
+        
+        //intially put root in the vector
+        if(!isLeaf(root)){
+            res.push_back(root->data);
+        }
+        
+        //step1: get left boundary excluding leaf nodes
+        addLeftBoundary(root, res);
+        //step2: get leaf nods
+        addLeafNodes(root, res);
+        //step3: get right boundary in reverse excluding the leaf nodes
+        addRightBoundary(root, res);
+        
+        return res;
+    }
