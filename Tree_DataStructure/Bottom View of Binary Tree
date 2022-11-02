@@ -1,0 +1,42 @@
+input:
+                      20
+                    /    \
+                  8       22
+                /   \        \
+              5      3       25
+                    /   \      
+                  10    14
+
+For the above tree, the bottom view is 5 10 3 14 25.
+
+ vector <int> bottomView(Node *root) {
+        vector<int> ans;
+        
+        if(root == NULL){
+            return ans;
+        }
+        queue<pair<Node*, int>>q;
+        map<int, int> mpp;
+        
+        q.push({root, 0});
+        while(!q.empty()){
+            auto it = q.front();
+            q.pop();
+            
+            Node* node = it.first;
+            int line = it.second;
+            
+            mpp[line] = node->data;
+            if(node->left != NULL){
+                q.push({node->left, line-1});
+            }
+            if(node->right != NULL){
+                q.push({node->right, line+1});
+            }
+            
+        }
+        for(auto it: mpp){
+            ans.push_back(it.second);
+        }
+        return ans;
+    }
