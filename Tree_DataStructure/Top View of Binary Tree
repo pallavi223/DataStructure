@@ -1,0 +1,48 @@
+       1
+    /     \
+   2       3
+  /  \    /   \
+4    5  6   7
+
+Top view will be: 4 2 1 3 7
+
+T(C) -- O(N) 
+S(C) -- O(N)
+
+
+
+    vector<int> topView(Node *root)
+    {
+        //here we follow a level order traversl approach
+        vector<int> ans;
+        if(root == NULL){
+            return ans;
+        }
+        
+        map<int,int>mpp;
+        queue<pair<Node*,int>>q;
+        q.push({root, 0});   //root node, line
+        
+        while(!q.empty()){
+            auto it = q.front();
+            q.pop();
+            Node* node = it.first;   //put q ka front
+            int line = it.second;
+            
+            if(mpp.find(line) == mpp.end()){
+                mpp[line] = node->data;
+            }
+            if(node->left != NULL){
+                q.push({node->left , line-1});
+            }
+            if(node->right != NULL){
+                q.push({node->right, line+1});
+            }
+        }
+        for(auto it: mpp){
+            ans.push_back(it.second);
+        }
+        return ans;
+    }
+
+};
