@@ -1,0 +1,74 @@
+Input: root = [3,5,1,6,2,0,8,null,null,7,4], p = 5, q = 1
+Output: 3
+Explanation: The LCA of nodes 5 and 1 is 3.
+
+
+///////////////////  Brute Force
+bool findp(TreeNode* root, vector<TreeNode*>& x, TreeNode* y){
+    if(root==NULL){return false;}
+    x.push_back(root);
+    if(root->val==y->val){return true;}
+    if(findp(root->left, x, y) || findp(root->right, x, y)){return true;}
+    x.pop_back();
+    return false;
+}
+//Function to return the lowest common ancestor in a Binary Tree.
+TreeNode* lowestCommonAncestor(TreeNode* root, TreeNode* p, TreeNode* q)
+{
+   //Your code here 
+   TreeNode* no1=root;
+   TreeNode* no2=root;
+   vector<TreeNode*>v1, v2;
+   findp(no1, v1, p);
+   findp(no2, v2, q);
+   //cout<<v1.size()<<" "<<v2.size()<<endl;
+   vector<int>a1, a2;
+  for(int i=0; i<v1.size(); i++){
+      a1.push_back(v1[i]->val);
+  }
+  for(int i=0; i<v2.size(); i++){
+      a2.push_back(v2[i]->val);
+  }
+//   for(int i=0; i<v1.size(); i++){
+//       cout<<a1[i]<<" ";
+//   }cout<<endl;
+//   for(int i=0; i<v2.size(); i++){
+//       cout<<a2[i]<<" ";
+//   }cout<<endl;
+  int cnt, maxi=max(v1.size(), v2.size()), mini=min(v1.size(), v2.size());
+  if(v1[mini-1]->val==v2[mini-1]->val){return v1[mini-1];}
+  for(int i=0; i<maxi; i++){
+      if(a1[i]!=a2[i]){cnt=i; break;}
+  }
+  //cout<<cnt<<endl;
+   TreeNode* ans=v1[cnt-1];
+//   for(int i=0; i<v1.size(); i++){
+//       cnt--;
+//       if(cnt==0){ans=(*it);}
+//   }
+   return ans;
+}
+
+
+
+class Solution {
+public:
+    TreeNode* lowestCommonAncestor(TreeNode* root, TreeNode* p, TreeNode* q) {
+       if(root == NULL || root == p || root == q){
+           return root;
+       }   
+
+       TreeNode* left = lowestCommonAncestor(root->left, p, q);
+       TreeNode* right = lowestCommonAncestor(root -> right, p , q);
+
+       if(left == NULL){
+           return right;
+       }
+       else if(right == NULL){
+           return left;
+       }
+       else{
+           return root;
+       }
+    }
+};
