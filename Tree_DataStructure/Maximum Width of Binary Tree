@@ -1,0 +1,45 @@
+Input: root = [1,3,2,5,3,null,9]
+Output: 4
+Explanation: The maximum width exists in the third level with length 4 (5,3,null,9).
+
+T(C) : O(N)
+S(C): O(N)
+
+class Solution {
+public:
+    int widthOfBinaryTree(TreeNode* root) {
+        
+        if(root == NULL){
+            return 0;
+        }
+        int ans = 0;
+        queue<pair<TreeNode* , int>> q;
+        q.push({root, 0});
+
+        while(!q.empty()){
+
+            int size = q.size();
+            int min = q.front().second;
+
+            int first, last;
+            for(int i=0;i<size;i++){
+                int curr_index = q.front().second-min;
+                TreeNode* node = q.front().first;
+
+                q.pop();
+                if(i==0)
+                   first = curr_index;
+                if(i==size-1)
+                   last = curr_index;
+
+                if(node->left)
+                   q.push({node->left , (long long)curr_index*2+1});
+                if(node->right)
+                   q.push({node->right, (long long)curr_index*2+2});
+
+            }
+            ans = max(ans, last-first+1);
+        }
+        return ans;
+    }
+};
