@@ -96,3 +96,42 @@ It is known that in 1 second all nodes connected to a given node get burned. Tha
         return ans;
     }
 };
+
+
+##############################
+
+class Solution {
+  public:
+    int ff(Node* root, int target, int level, int &ans, int consider) {
+        if (root == NULL)
+            return -1;
+            
+        if (consider == 1)
+            ans = max(ans, level);
+        
+        if (root->data == target) {
+            ff(root->left, target, 1, ans, 1);
+            ff(root->right, target, 1, ans, 1);
+            return 1;
+        }
+        
+        int left = ff(root->left, target, level+1, ans, consider);
+        int right = ff(root->right, target, level+1, ans, consider);
+        
+        if (left != -1) {
+            ff(root->right, target, left+1, ans, 1);
+            return left+1;
+        }
+        if (right != -1) {
+            ff(root->left, target, right+1, ans, 1);
+            return right+1;
+        }
+        return -1;
+    }
+  
+    int minTime(Node* root, int target) {
+        int ans = 0;
+        ff(root, target, 0, ans, 0);
+        return ans;
+    }
+};
